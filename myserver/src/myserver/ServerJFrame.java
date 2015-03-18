@@ -22,6 +22,7 @@ public class ServerJFrame extends javax.swing.JFrame {
     public ServerJFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setTitle("Server");
     }
 
     /**
@@ -36,7 +37,7 @@ public class ServerJFrame extends javax.swing.JFrame {
         server_MessageBox = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        serverMessageArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,9 +54,9 @@ public class ServerJFrame extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        serverMessageArea.setColumns(20);
+        serverMessageArea.setRows(5);
+        jScrollPane1.setViewportView(serverMessageArea);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,7 +94,10 @@ public class ServerJFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             // TODO add your handling code here:
-            dataToClient.writeUTF("From Server");
+            String smes=server_MessageBox.getText().trim();
+            dataToClient.writeUTF(smes);
+            serverMessageArea.append("Server:"+smes+'\n');
+            server_MessageBox.setText("");
         } catch (IOException ex) {
             Logger.getLogger(ServerJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -138,7 +142,7 @@ public class ServerJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    static javax.swing.JTextArea serverMessageArea;
     private javax.swing.JTextField server_MessageBox;
     // End of variables declaration//GEN-END:variables
 }
