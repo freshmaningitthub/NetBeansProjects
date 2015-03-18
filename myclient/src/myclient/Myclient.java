@@ -19,15 +19,22 @@ public class Myclient {
     /**
      * @param args the command line arguments
      */
+    static DataInputStream dataFromServer = null;
+    static DataOutputStream dataToServer = null;
+
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
-        Socket socket=new Socket("localhost",8000);
-         DataInputStream dataFromServer=new DataInputStream(socket.getInputStream());
-        DataOutputStream dataToServer=new DataOutputStream(socket.getOutputStream());
-       //dataToServer.writeChar('C');
-       dataToServer.write("From Client.".getBytes());
-        System.out.println(dataFromServer.read());
-        
+        ClientJFrame cjf = new ClientJFrame();
+        cjf.show();
+        Socket socket = new Socket("localhost", 8000);
+        dataFromServer = new DataInputStream(socket.getInputStream());
+        dataToServer = new DataOutputStream(socket.getOutputStream());
+        //dataToServer.writeChar('C');
+        while (true) {
+            ClientJFrame.clientMessageArea.append("Server"+dataFromServer.readUTF()+'\n');
+        }
+        //System.out.println(dataFromServer.readUTF());
+
     }
-    
+
 }
